@@ -43,6 +43,12 @@ public class DocumentController {
         }
     }
 
+    // Получение списка документов мероприятия
+    @GetMapping("/{activityId}/documents")
+    public ResponseEntity<List<Document>> getDocumentsByActivity(@PathVariable UUID activityId) {
+        return ResponseEntity.ok(documentRepository.findByActivityIdAndDeletedAtIsNull(activityId));
+    }
+
     // Загрузка документа к мероприятию
     @PostMapping("/{activityId}/documents")
     public ResponseEntity<?> uploadDocument(

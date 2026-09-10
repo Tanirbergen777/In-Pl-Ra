@@ -5,6 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @Entity
@@ -18,6 +19,7 @@ public class Plan {
     // Многие планы могут принадлежать Одному сотруднику (Many-To-One)
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
+    @JsonIgnoreProperties({"deletedAt", "updatedAt", "createdAt", "managerId"})
     private User employee;
 
     @Column(name = "period_start", nullable = false)

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "documents") // Имя таблицы строго из БД
@@ -16,6 +17,7 @@ public class Document {
 
     @ManyToOne
     @JoinColumn(name = "activity_id", nullable = false)
+    @JsonIgnoreProperties({"plan", "deletedAt"})
     private Activity activity;
 
     @Column(name = "name", nullable = false)
@@ -32,6 +34,7 @@ public class Document {
 
     @ManyToOne
     @JoinColumn(name = "uploaded_by")
+    @JsonIgnoreProperties({"deletedAt", "updatedAt", "createdAt", "managerId"})
     private User uploadedBy;
 
     @Column(name = "uploaded_at")
